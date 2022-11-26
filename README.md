@@ -32,5 +32,9 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 - Solder any wires that require connecting together (these will be to join the motor driver to the Arduino.
 - Reduce the hieght of the chassis, moving the centre of gravity lower. The original OpenScout allowed for rough terrain to be traversed but since this version has no Lazy Susan it will be more likely to topple. Reducing height will help prevent toppling.
 - Increase chassis width, from 240mm to 290mm. This will give even more stability. 
+- Add WiFi to OpenScout. This enables getting commands to, and odometry from, OpenScout and be usable by ROS.
+- Kinematic speed and anguar velocities can be sent across WiFI via MQTT
+
+
 
 
