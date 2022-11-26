@@ -28,5 +28,9 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 
 - Replace all extended cables / wires with a single length of cable. To remove intdermittent faults.
 - Shorten wires, bring Arduino down from top shelf to bottom self so that all baseline feature electronics are on same shelf. Short wires mean less weight (not too much of an issue but a principle in that you do not want to be expending energy moving unnecessary weight - helps conserve the battery, good for the planet).
+- Add an Ardunio shield - the first iteration of the shield enables wires to be screwed in to the shield, the second allows wires to be soldered to the shield. This enables the Arduino to be removed and replaced qucikly.
+- Solder any wires that require connecting together (these will be to join the motor driver to the Arduino.
+- Reduce the hieght of the chassis, moving the centre of gravity lower. The original OpenScout allowed for rough terrain to be traversed but since this version has no Lazy Susan it will be more likely to topple. Reducing height will help prevent toppling.
+- Increase chassis width, from 240mm to 290mm. This will give even more stability. 
 
 
