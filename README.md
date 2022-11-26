@@ -34,6 +34,16 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 - Increase chassis width, from 240mm to 290mm. This will give even more stability. 
 - Add WiFi to OpenScout. This enables getting commands to, and odometry from, OpenScout and be usable by ROS.
 - Kinematic speed and anguar velocities can be sent across WiFI via MQTT
+- See if motor brackets need sprung washer to fix them better
+- Test why motors are activated at random intervals
+
+## Action Taken
+
+- Upgraded Arduino Mega 2560 and bought with Ardunio Mega 2560 with ESP8266 Wifi on board
+- Purchased and connected an Arduino sheild and screwed in wires to eliminate bad connects Arduino end
+- Purchased another Arduino shield for soldering wires rather than screwing them.
+- Experimented with RC controller and established that noise triggers the motor commands - made less sensitive via software
+
 
 
 
