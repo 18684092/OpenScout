@@ -26,5 +26,7 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 
 ### Initial Project Plan
 
-- 
+- Replace all extended cables / wires with a single length of cable. To remove intdermittent faults.
+- Shorten wires, bring Arduino down from top shelf to bottom self so that all baseline feature electronics are on same shelf. Short wires mean less weight (not too much of an issue but a principle in that you do not want to be expending energy moving unnecessary weight - helps conserve the battery, good for the planet).
+
 
