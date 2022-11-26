@@ -37,7 +37,7 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 - Kinematic speed and anguar velocities can be sent across WiFI via MQTT
 - See if motor brackets need sprung washer to fix them better
 - Test why motors are activated at random intervals
-- Consider adding a step down DC to DC converter so that 12v battery is converted to 9v for Arduino. This may protect Arduino from over voltage.
+- Consider adding a step down DC to DC converter so that 12v battery is converted to 9v for Arduino. This may protect Arduino from over voltage, especially if battery is on charge and and OpenScout isn't turned off. 
 
 ## Action Taken
 
