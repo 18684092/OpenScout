@@ -23,6 +23,7 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 - There is a 12v battery but no means of charging the battery.
 - The clear acetate bottom and top shelves are not fixed at the corners which exposes flexing in the shelf.
 - Since OpenScout had the Arduino and battery removed on first inspection, it was necessary to connect all wires to the Arduino. This exposed the fact that this proceedure was very time consuming since the circuit diagram had to be followed for each wire. Mistakes were made. Replacing the Arduino during testing or for repair is expected to be a common occurance.
+- Battery voltage powers Arduino directly. Arduino Vin is 7v to 12v and if battery was charged and OpenScout was not turned off Ardunio could be damaged.
 
 ### Initial Project Plan
 
@@ -36,13 +37,15 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 - Kinematic speed and anguar velocities can be sent across WiFI via MQTT
 - See if motor brackets need sprung washer to fix them better
 - Test why motors are activated at random intervals
+- Consider adding a step down DC to DC converter so that 12v battery is converted to 9v for Arduino. This may protect Arduino from over voltage.
 
 ## Action Taken
 
 - Upgraded Arduino Mega 2560 and bought with Ardunio Mega 2560 with ESP8266 Wifi on board
 - Purchased and connected an Arduino sheild and screwed in wires to eliminate bad connects Arduino end
 - Purchased another Arduino shield for soldering wires rather than screwing them.
-- Experimented with RC controller and established that noise triggers the motor commands - made less sensitive via software
+- Experimented with RC controller and established that noise triggers the motor commands - made less sensitive via software. Initial problem solved.
+-
 
 
 
