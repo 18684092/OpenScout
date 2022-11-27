@@ -51,6 +51,12 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 Laptop / ROS Server side https://www.vultr.com/docs/install-mosquitto-mqtt-broker-on-ubuntu-20-04-server/
 
 
+## Selecting Cables
+- Wire gage selection https://www.12voltplanet.co.uk/cable-sizing-selection.html
+- Wire gage https://www.belcom.co.uk/technicals/wire-gauge-resistance-cross-section-current-table-1
+- Wire gage https://www.ti.com/lit/an/snla219/snla219.pdf?ts=1669538327428&ref_url=https%253A%252F%252Fwww.google.com%252F
+
+
 
 
 
