@@ -56,6 +56,10 @@ Laptop / ROS Server side https://www.vultr.com/docs/install-mosquitto-mqtt-broke
 - Wire gage https://www.belcom.co.uk/technicals/wire-gauge-resistance-cross-section-current-table-1
 - Wire gage https://www.ti.com/lit/an/snla219/snla219.pdf?ts=1669538327428&ref_url=https%253A%252F%252Fwww.google.com%252F
 
+## Possible Future Problems
+
+- Serial comms between 2 devices. Ideally they need to be running with the same clock frequency but even then errors can happen. Check sums and then re-send the data if needed. Perhaps an easier way for OpenScout initially is to test that the json string received is a valid serialised string and if not ignore it.
+
 
 
 
