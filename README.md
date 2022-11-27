@@ -50,6 +50,9 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 ## MQTT
 Laptop / ROS Server side https://www.vultr.com/docs/install-mosquitto-mqtt-broker-on-ubuntu-20-04-server/
 
+Basic config for MQTT is a file withing conf.d/ with "listener 1883 0.0.0.0 and allow_anonymous true"
+
+
 
 ## Selecting Cables
 - Wire gage selection https://www.12voltplanet.co.uk/cable-sizing-selection.html
