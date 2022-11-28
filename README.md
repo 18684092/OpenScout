@@ -59,6 +59,7 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 ## Possible Future Problems
 
 - Serial comms between 2 devices. Ideally they need to be running with the same clock frequency but even then errors can happen. Check sums and then re-send the data if needed. Perhaps an easier way for OpenScout initially is to test that the json string received is a valid serialised string and if not ignore it.
+- Wifi from a cheap device (ESP8266) may suffer from not having a good areial but the combined Mega + WiFi card has option for an external areial, possibly a good idea to fit it.
 
 ## Arduino Mega 2560 + WiFi Links + others
 - https://forum.arduino.cc/t/sending-integer-data-from-mega2560-to-esp8266/556915/2
