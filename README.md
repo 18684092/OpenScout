@@ -48,11 +48,8 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 - Set up MQTT server so that ESP8266 WiFi can be tested
 
 ## MQTT
-Laptop / ROS Server side https://www.vultr.com/docs/install-mosquitto-mqtt-broker-on-ubuntu-20-04-server/
-
-Basic config for MQTT is a file withing conf.d/ with "listener 1883 0.0.0.0 and allow_anonymous true"
-
-
+- Laptop / ROS Server side https://www.vultr.com/docs/install-mosquitto-mqtt-broker-on-ubuntu-20-04-server/
+- Basic config for MQTT is a file withing conf.d/ with "listener 1883 0.0.0.0 and allow_anonymous true"
 
 ## Selecting Cables
 - Wire gage selection https://www.12voltplanet.co.uk/cable-sizing-selection.html
@@ -73,6 +70,12 @@ Basic config for MQTT is a file withing conf.d/ with "listener 1883 0.0.0.0 and 
 - https://www.klaceycables.co.uk/default/public/media/filemanager/Equivalence%20table%20for%20wire%20gauge-dbdm.pdf
 - https://forum.arduino.cc/t/jumper-cable-resistance/587118/5
 - https://www.12voltplanet.co.uk/cable-sizing-selection.html
+
+## Programming the Arduino and ESP8266
+- DIP switches need setting to select which MCU needs uploading to
+- After uploading DIP switches need changing to allow serial port monitoring
+- When the Mega and 8266 need to communicate between each other DIP switches need changing again
+- The RX-TX switch will need to be set
 
 
 
