@@ -63,6 +63,19 @@ Basic config for MQTT is a file withing conf.d/ with "listener 1883 0.0.0.0 and 
 
 - Serial comms between 2 devices. Ideally they need to be running with the same clock frequency but even then errors can happen. Check sums and then re-send the data if needed. Perhaps an easier way for OpenScout initially is to test that the json string received is a valid serialised string and if not ignore it.
 
+## Arduino Mega 2560 + WiFi Links + others
+- https://forum.arduino.cc/t/sending-integer-data-from-mega2560-to-esp8266/556915/2
+- https://www.instructables.com/Arduino-MEGA-2560-With-WiFi-Built-in-ESP8266/
+- https://www.ti.com/lit/an/snla219/snla219.pdf?ts=1669538327428&ref_url=https%253A%252F%252Fwww.google.com%252F
+- https://bytesofgigabytes.com/mqtt/esp8266-as-mqtt-publisher-and-subscriber/
+- https://forum.arduino.cc/t/maximum-voltage-and-amp-on-vin/306729
+- https://www.belcom.co.uk/technicals/wire-gauge-resistance-cross-section-current-table-1
+- https://www.klaceycables.co.uk/default/public/media/filemanager/Equivalence%20table%20for%20wire%20gauge-dbdm.pdf
+- https://forum.arduino.cc/t/jumper-cable-resistance/587118/5
+- https://www.12voltplanet.co.uk/cable-sizing-selection.html
+
+
+
 
 
 
