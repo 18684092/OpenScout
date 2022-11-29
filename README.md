@@ -72,6 +72,8 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 - https://www.klaceycables.co.uk/default/public/media/filemanager/Equivalence%20table%20for%20wire%20gauge-dbdm.pdf
 - https://forum.arduino.cc/t/jumper-cable-resistance/587118/5
 - https://www.12voltplanet.co.uk/cable-sizing-selection.html
+- Circuit diagram https://dcc-ex.com/_images/mega_wifi1.png
+- Tutorial https://dcc-ex.com/reference/hardware/microcontrollers/wifi-mega.html
 
 ## Programming the Arduino and ESP8266
 - DIP switches need setting to select which MCU needs uploading to
