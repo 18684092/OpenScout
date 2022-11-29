@@ -78,6 +78,13 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 - After uploading DIP switches need changing to allow serial port monitoring
 - When the Mega and 8266 need to communicate between each other DIP switches need changing again
 - The RX-TX switch will need to be set
+- https://cdn.sparkfun.com/datasheets/Dev/Arduino/Other/CH340DS1.PDF
+- https://en.wikipedia.org/wiki/FTDI Future Technology Devices International Limited and the CH340 is an equivalent 
+
+## Notes with Arduino Mega 2560 + ESP8266 WiFi
+- Serial comms between the two chips requires DIP switches 1,2,3,4 to be set when running. This connects Mega serial port 3 to ESP serial port 0. This in turn stops the FTDI (CH340) from allowing the serial debugging monitor within the Arduino IDE 
+- When detecting whether there is data in the receive buffer don't use serial.available() use serialevent() and add data to a string until an EOL character is seen. This allows interupt driven receiving of data rather than polling the serial.available() within a loop.
+
 
 
 
