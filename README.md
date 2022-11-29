@@ -46,6 +46,7 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 - Purchased another Arduino shield for soldering wires rather than screwing them.
 - Experimented with RC controller and established that noise triggers the motor commands - made less sensitive via software. Initial problem solved.
 - Set up MQTT server so that ESP8266 WiFi can be tested
+- Added barrel power connector to connect Step down DC-DC converter to access Arduino's main regulator and make connection better
 
 ## MQTT
 - Laptop / ROS Server side https://www.vultr.com/docs/install-mosquitto-mqtt-broker-on-ubuntu-20-04-server/
