@@ -74,6 +74,7 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 - https://www.12voltplanet.co.uk/cable-sizing-selection.html
 - Circuit diagram https://dcc-ex.com/_images/mega_wifi1.png
 - Tutorial https://dcc-ex.com/reference/hardware/microcontrollers/wifi-mega.html
+- WiFi Aerial https://www.ebay.co.uk/itm/185673226472
 
 ## Programming the Arduino and ESP8266
 - DIP switches need setting to select which MCU needs uploading to
