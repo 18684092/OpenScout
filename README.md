@@ -54,6 +54,7 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 - Mega 2560 to ESP8266 serial bi-directional communications tested with Arduino code.
 - ESP8266 serial to WiFi code written.
 - https://www.amazon.co.uk/gp/product/B08J41636G/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1 purchased as other BLDC controller/driver is impractical.
+- Purchased WiFi aerial to make communication more reliable with larger range. https://www.ebay.co.uk/itm/185673226472
 
 ## MQTT
 - Laptop / ROS Server side https://www.vultr.com/docs/install-mosquitto-mqtt-broker-on-ubuntu-20-04-server/
