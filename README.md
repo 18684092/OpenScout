@@ -41,14 +41,18 @@ OpenScout currently has a main Lazy Susan version and a spin off version without
 
 ## Action Taken
 
-- Upgraded Arduino Mega 2560 and bought with Ardunio Mega 2560 with ESP8266 Wifi on board
-- Purchased and connected an Arduino sheild and screwed in wires to eliminate bad connects Arduino end
+- Upgraded Arduino Mega 2560 and bought Ardunio Mega 2560 with ESP8266 Wifi on board.
+- Purchased and connected an Arduino sheild and screwed in wires to eliminate bad connects Arduino end.
 - Purchased another Arduino shield for soldering wires rather than screwing them.
 - Experimented with RC controller and established that noise triggers the motor commands - made less sensitive via software. Initial problem solved.
-- Set up MQTT server so that ESP8266 WiFi can be tested
+- Set up MQTT server so that ESP8266 WiFi can be tested.
 - Added barrel power connector to connect Step down DC-DC converter to access Arduino's main regulator and make connection better.
-- Soldered all wires to remove Dupont connectors - All intermittent faults now cured.
+- Soldered all wires to remove Dupont connectors - All intermittent faults now cured. Afsaneh, Prabuddhi and Andy.
 - Increased time of RC pulse that is accepted as a signal. This solved noise triggering a command.
+- 12 to 30v input to 7v output DC-DC converter tested. Afsaneh and Prabuddhi.
+- Investigating BLDC motors and controllers. Hub motors and a BLDC driver purchased. Andy
+- Mega 2560 to ESP8266 serial bi-directional communications tested with Arduino code.
+- ESP8266 serial to WiFi code written.
 
 ## MQTT
 - Laptop / ROS Server side https://www.vultr.com/docs/install-mosquitto-mqtt-broker-on-ubuntu-20-04-server/
