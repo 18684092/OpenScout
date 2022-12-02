@@ -55,22 +55,25 @@ float currentSpeed[] = {0,0,0,0};
 float previousSpeed[] = {0,0,0,0};
 
 // A class to compute the control signal
-class SimplePID{
+class SimplePID
+{
   private:
     float kp, kd, ki, umax; // Parameters
     float eprev, eintegral; // Storage
 
   public:
-  // Constructor
-  SimplePID() : kp(2), kd(1), ki(5), umax(15), eprev(0.0), eintegral(0.0){}
+    // Constructor
+    SimplePID() : kp(2), kd(1), ki(5), umax(15), eprev(0.0), eintegral(0.0){}
 
   // A function to set the parameters
-  void setParams(float kpIn, float kdIn, float kiIn, float umaxIn){
+  void setParams(float kpIn, float kdIn, float kiIn, float umaxIn)
+  {
     kp = kpIn; kd = kdIn; ki = kiIn; umax = umaxIn;
   }
 
   // A function to compute the control signal
-  void evalu(float value, float target, float deltaT, int &pwr, int &dir){
+  void evalu(float value, float target, float deltaT, int &pwr, int &dir)
+  {
     // error
     float e = target - value;
   
@@ -78,72 +81,90 @@ class SimplePID{
     float dedt = (e-eprev)/(deltaT);
   
     // integral
-    eintegral = eintegral + (0.5*(eprev+e)*deltaT); // 1/2 * (a + b) * h
+    eintegral = eintegral + (0.5*(eprev+e)*deltaT); // 1/2 * (a + b) * h;
   
     // control signal
     float u = kp*e + kd*dedt + ki*eintegral;
 
     // motor direction
     dir = 1;
-    if(u<0){
+    if (u < 0)
+    {
       dir = -1;
     }
 
     // motor power
     pwr = int(255 * (abs(u)/VMAX));
-    if( pwr > umax ){
+    if (pwr > umax)
+    {
       pwr = umax;
-    } else if ( pwr < 20) {
+    }
+    else if (pwr < 20)
+    {
       pwr = 0;
     }
 
-    if (eintegral > 10) {
+    if (eintegral > 10)
+    {
       eintegral = 10;
-    } else if (eintegral < -10) {
+    }
+    else if (eintegral < -10)
+    {
       eintegral = -10;
     }
     
     // store previous error
     eprev = e;
-  }
-  
+  }  
 };
 
 // PID class instances
 SimplePID motor[NMOTORS];
 
-void setMotor(int dir, int PWMVal, int PWM, int INP_1, int INP_2){
+void setMotor(int dir, int PWMVal, int PWM, int INP_1, int INP_2)
+{
   analogWrite(PWM,PWMVal);
-  if(dir == 1){
+  if(dir == 1)
+  {
     digitalWrite(INP_1,LOW);
     digitalWrite(INP_2,HIGH);
   }
-  else if(dir == -1){
+  else if(dir == -1)
+  {
     digitalWrite(INP_1,HIGH);
     digitalWrite(INP_2,LOW);
   }
-  else{
+  else
+  {
     digitalWrite(INP_1,LOW);
     digitalWrite(INP_2,LOW);
   }
 }
 
 template <int j>
-void readEncoder(){
+void readEncoder()
+{
   int b = digitalRead(ENC_B[j]);
   int i = 0;
-  if ((j == 0) || (j == 2)) { 
-    if(b > 0){
+  if ((j == 0) || (j == 2))
+  { 
+    if(b > 0)
+    {
       pos_i[j]++;
     }
-    else{
+    else
+    {
       pos_i[j]--;
     }
-  } else if ((j == 1) || (j == 3)) {
-    if(b > 0){
+  }
+  else if ((j == 1) || (j == 3))
+  {
+    if(b > 0)
+    {
       pos_i[j]--;
     }
-    else{
+    else
+    {
       pos_i[j]++;
     }
   }
@@ -152,7 +173,8 @@ void readEncoder(){
 volatile int count = 0;
 int count_prev = 0;
 
-ISR(TIMER5_COMPA_vect) {
+ISR(TIMER5_COMPA_vect)
+{
   count++;
 }
 
@@ -175,7 +197,8 @@ void setup()
   TIMSK5 |= (1 << OCIE5A);
   sei(); // re-enables interrupts
 
-  for(int k = 0; k < NMOTORS; k++){
+  for(int k = 0; k < NMOTORS; k++)
+  {
     pinMode(ENC_A[k],INPUT);
     pinMode(ENC_B[k],INPUT);
     pinMode(PWM[k],OUTPUT);
@@ -183,6 +206,7 @@ void setup()
     pinMode(INP_2[k],OUTPUT);
     motor[k].setParams(PGAIN,DGAIN,IGAIN,UMAX);
   }
+  
   pinMode (CH1, INPUT);// initialises the channels
   pinMode (CH2, INPUT);// initialises the channels
  
@@ -191,8 +215,7 @@ void setup()
   attachInterrupt(digitalPinToInterrupt(ENC_A[2]),readEncoder<2>,RISING);
   attachInterrupt(digitalPinToInterrupt(ENC_A[3]),readEncoder<3>,RISING);
   attachInterrupt(digitalPinToInterrupt(CH1),readCh1,CHANGE);
-  attachInterrupt(digitalPinToInterrupt(CH2),readCh2,CHANGE);
-  
+  attachInterrupt(digitalPinToInterrupt(CH2),readCh2,CHANGE);  
 }
 
 // Incoming data
@@ -241,49 +264,58 @@ void serialEvent3()
 }
 
 
-float mapf(float x, float in_min, float in_max, float out_min, float out_max) {
-     float result;
-     result = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-     return result;
+float mapf(float x, float in_min, float in_max, float out_min, float out_max)
+{
+  float result;
+  result = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+  return result;
 }
 
 void readCh1() 
 {
-     unsigned long value;
-     value = digitalRead (CH1);
-     if (value == 1) {
-      timestart_ch1 = micros();
-     } else if (value == 0) {
-      long timestop = micros();
-      timedelta_ch1 = timestop - timestart_ch1; 
-     }
+  unsigned long value;
+  value = digitalRead (CH1);
+  if (value == 1)
+  {
+    timestart_ch1 = micros();
+  }
+  else if (value == 0)
+  {
+    long timestop = micros();
+    timedelta_ch1 = timestop - timestart_ch1; 
+  }
 }
 
 void readCh2() 
 {
-     unsigned long value;
-     value = digitalRead (CH2);
-     if (value == 1) {
-      timestart_ch2 = micros();
-     } else if (value == 0) {
-      long timestop = micros();
-      timedelta_ch2 = timestop - timestart_ch2; 
-     }
+  unsigned long value;
+  value = digitalRead (CH2);
+  if (value == 1)
+  {
+    timestart_ch2 = micros();
+  } else if (value == 0)
+  {
+    long timestop = micros();
+    timedelta_ch2 = timestop - timestart_ch2; 
+  }
 }
 
 void loop() {
   float linearSpeed = 0.0;
   float angularSpeed = 0.0;
-  if (count > count_prev) {
+  if (count > count_prev)
+  {
     // Compute time
     long currT = micros();
-    float deltaT = ((float) (currT-prevT))/1.0e6;
+    float deltaT = ((float) (currT-prevT)) / 1.0e6;
     float delta_pos[] = {0.0, 0.0, 0.0, 0.0};
   
     // Read the velocity in an atomic block to avoid a potential misread
     // and convert from counts/s to rad/s
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE){
-      for (int k=0; k<NMOTORS; k++){
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+    {
+      for (int k=0; k<NMOTORS; k++)
+      {
         delta_pos[k] = pos_i[k] - previous_pos[k];
         velocity[k] = delta_pos[k] / N / deltaT * 2 * PI;
         previous_pos[k] = pos_i[k];
@@ -292,14 +324,16 @@ void loop() {
     
     // Read transmitter
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE){
-      throttleValue = mapf(timedelta_ch2,CH2_LIMITS[0],CH2_LIMITS[1],-1,1);; //maxRPS*sin(prevT/1e6*1);
-      steeringValue = mapf(timedelta_ch1,CH1_LIMITS[0],CH1_LIMITS[1],1,-1);; //maxRPS*sin(prevT/1e6*1);
+      throttleValue = mapf(timedelta_ch2,CH2_LIMITS[0],CH2_LIMITS[1],-1,1); //maxRPS*sin(prevT/1e6*1);
+      steeringValue = mapf(timedelta_ch1,CH1_LIMITS[0],CH1_LIMITS[1],1,-1); //maxRPS*sin(prevT/1e6*1);
       // Make a dead-zone for throttling
-      if ((throttleValue >= -0.10) && (throttleValue <= 0.10)) {
+      if ((throttleValue >= -0.10) && (throttleValue <= 0.10))
+      {
         throttleValue = 0.0;
       }
       // Make a dead-zone for steering
-      if ((steeringValue >= -0.25) && (steeringValue <= 0.25)) {
+      if ((steeringValue >= -0.25) && (steeringValue <= 0.25))
+      {
         steeringValue = 0.0;
       }
     }
@@ -315,12 +349,14 @@ void loop() {
     Serial.println(steeringValue);
 
     // if controller is off when robot is turned on. throttleValue received is ~ -3. Going to reset this to zero
-    if (throttleValue < -1.5) {
+    if (throttleValue < -1.5)
+    {
       throttleValue = 0.0;
     }
 
     // if controller is off when robot is turned on. steeringValue received is ~ 3. Going to reset this to zero
-    if (steeringValue > 1.5) {
+    if (steeringValue > 1.5)
+    {
       steeringValue = 0.0;
     }
 
@@ -336,17 +372,19 @@ void loop() {
     targetSpeed[3] = leftSpeed;
     
     // Low-pass filter (25 Hz cutoff)
-    for (int k=0; k<NMOTORS; k++) {
+    for (int k=0; k<NMOTORS; k++)
+    {
       currentSpeed[k] = 0.854*currentSpeed[k] + 0.0728*velocity[k] + 0.0728*previousSpeed[k];
       previousSpeed[k] = velocity[k];
     }
 
     // Set speeds
-    for (int k=0; k<NMOTORS; k++) {
+    for (int k=0; k<NMOTORS; k++)
+    {
       int pwr, dir;
       motor[k].evalu(velocity[k], targetSpeed[k], deltaT, pwr, dir);
-
-      if ((targetSpeed[k] < 0.1) && (targetSpeed[k] > -0.1) ) {
+      if ((targetSpeed[k] < 0.1) && (targetSpeed[k] > -0.1) )
+      {
         pwr = 0;
         dir = 0;
       }
@@ -359,8 +397,7 @@ void loop() {
     float rightVirtualWheelSpeed = (velocity[0] + velocity[2]) * 0.5;
     float leftVirtualWheelSpeed = (velocity[1] + velocity[3]) * 0.5;
 
-    float feedbackAngularVelocity = (((rightVirtualWheelSpeed * wheelRadius) + ( -1* leftVirtualWheelSpeed * wheelRadius)) / ( 2 * wheelDistance));
-
+    float feedbackAngularVelocity = (((rightVirtualWheelSpeed * wheelRadius) + (-1* leftVirtualWheelSpeed * wheelRadius)) / (2 * wheelDistance));
 
     prevT = currT;
     count_prev = count;
@@ -370,5 +407,4 @@ void loop() {
   sendToESP(linearSpeed, angularSpeed);
   String command = "";
   command = ReceiveFromESP();
-  
 }
