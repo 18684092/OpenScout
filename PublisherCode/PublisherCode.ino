@@ -5,7 +5,7 @@
 const char* ssid ="Xiaomi 12"; 
 const char* password ="1234567890";
 const char* topic = "test";
-char hostname[] ="192.168.101.250"; 
+char hostname[] ="192.168.107.250"; 
 int port = 1883;
 
 // Our unique name - change to
@@ -107,7 +107,7 @@ void reconnect()
 {
   while (!client.connected())
   {
-    status = WiFi.status();
+    int status = WiFi.status();
     if ( status != WL_CONNECTED) 
     {
       WiFi.begin(ssid, password);
