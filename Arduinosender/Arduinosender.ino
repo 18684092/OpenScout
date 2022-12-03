@@ -224,12 +224,14 @@ String inputString = "";
 // Incoming is complete or not
 boolean stringComplete = false;
 
+// Data received from ESP8266 serial will arrive here
 String ReceiveFromESP()
 {
   // Receive
   String rec = "";
   if (stringComplete)
   {
+    // TODO NOTE For now display command but this will readch1() & 2()
     Serial.println(inputString);
     rec = inputString;
     // clear the string:
@@ -239,11 +241,11 @@ String ReceiveFromESP()
   return (rec);
 }
 
+// Mega TX3 to ESP8266 RX 0
 void sendToESP(float x, float z)
 {
   // Send the JSON document over the "link" serial port
   Serial3.println("{x:" + String(x)+",z:"+String(z)+"}");
-  //delay(1);
 }
 
 // Gets triggered at the end of the loop() when a data is available in the serial buffer.
@@ -343,10 +345,6 @@ void loop() {
     targetSpeed[2] = 0.0;
     targetSpeed[1] = 0.0;
     targetSpeed[3] = 0.0;
-
-    //Serial.print(throttleValue);
-    //Serial.print('\t');
-    //Serial.println(steeringValue);
 
     // if controller is off when robot is turned on. throttleValue received is ~ -3. Going to reset this to zero
     if (throttleValue < -1.5)

@@ -2,20 +2,24 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 
+// MQTT details
 const char* subTopic = "command";
-
-const char* ssid ="Xiaomi 12"; 
-const char* password ="1234567890";
 const char* topic = "velocity";
 char hostname[] ="192.168.107.250"; 
 int port = 1883;
 
-// Our unique name - change to
+// WiFi details
+const char* ssid ="Xiaomi 12"; 
+const char* password ="1234567890";
+
+// Our unique name - change to MAC address
 #define TOKEN "AndyOpenScout"
 
+// Setup clients
 WiFiClient wifiClient;
 PubSubClient client(wifiClient);
 
+// Global variables
 String inputString = "";
 boolean stringComplete = false;
 boolean busy = false;
@@ -127,6 +131,7 @@ void loop()
   // Has a motor command been received
   if (flag)
   {
+    // Send to Mega 2560 (TX0 to RX3)
     Serial.println(MQTTin);
     MQTTin = "";
     flag = false;
