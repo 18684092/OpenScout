@@ -344,9 +344,9 @@ void loop() {
     targetSpeed[1] = 0.0;
     targetSpeed[3] = 0.0;
 
-    Serial.print(throttleValue);
-    Serial.print('\t');
-    Serial.println(steeringValue);
+    //Serial.print(throttleValue);
+    //Serial.print('\t');
+    //Serial.println(steeringValue);
 
     // if controller is off when robot is turned on. throttleValue received is ~ -3. Going to reset this to zero
     if (throttleValue < -1.5)

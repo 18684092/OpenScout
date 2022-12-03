@@ -2,9 +2,11 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 
+const char* subTopic = "command";
+
 const char* ssid ="Xiaomi 12"; 
 const char* password ="1234567890";
-const char* topic = "test";
+const char* topic = "velocity";
 char hostname[] ="192.168.107.250"; 
 int port = 1883;
 
@@ -16,6 +18,9 @@ PubSubClient client(wifiClient);
 
 String inputString = "";
 boolean stringComplete = false;
+boolean busy = false;
+boolean flag = false;
+String MQTTin = "";
 
 // Run once
 void setup()
@@ -35,6 +40,33 @@ void setup()
 
   // MQTT setup once WiFi is up
   client.setServer(hostname, port);
+
+  client.connect(TOKEN);
+
+  // Subscribe to the command topic
+  client.subscribe("command");
+  
+  // Set the message received callback
+  client.setCallback(onMessage);
+}
+
+// This function handles MQTT received messages
+void onMessage(char* t, byte* payload, unsigned int length)
+{
+  
+  if (strcmp(t, subTopic)==0)
+  {
+    flag = true;
+    // Convert the message payload from bytes to a string
+    String message = "";
+    for (unsigned int i=0; i< length; i++)
+    {
+      message = message + (char)payload[i];
+    }
+    
+    // make message available
+    MQTTin = message;
+  }
 }
 
 // Publish these two values to MQTT
@@ -46,15 +78,11 @@ void MQTTPOST(int x, int z)
   // My Serialisation string
   String s ="{";
   // x is forward velocity
-  s +="\"x\":"; 
-  s += myX; 
-  s +=",";
+  s +="\"x\":" + myX + ",";
   // z is angular velocity
-  s +="\"z\":";
-  s += myZ;
-  s +="}";
+  s +="\"z\":" + myZ + "}";
   char attributes[1000];
-  s.toCharArray( attributes, 1000 );
+  s.toCharArray(attributes, 1000);
   client.publish(topic, attributes);
 }
 
@@ -62,17 +90,17 @@ void MQTTPOST(int x, int z)
 // Triggered when data arrives on serial port
 void serialEvent()
 {
-  while (Serial.available())
-  {
-    // get the new byte:
-    char inChar = (char)Serial.read();
-    inputString += inChar;
-    // Look for EOL char - newline
-    if (inChar == '\n')
+    while (Serial.available())
     {
-      stringComplete = true;
-    }
-  }
+      // get the new byte:
+      char inChar = (char)Serial.read();
+      inputString += inChar;
+      // Look for EOL char - newline
+      if (inChar == '\n')
+      {
+        stringComplete = true;
+      }
+    } 
 }
 
 // Repeat forever
@@ -80,31 +108,44 @@ void loop()
 {
   // Have we finished receiving data?
   if (stringComplete)
+  {
+    StaticJsonDocument<50> doc;
+    DeserializationError err = deserializeJson(doc, inputString);
+    if (err == DeserializationError::Ok) 
     {
-      StaticJsonDocument<50> doc;
-      DeserializationError err = deserializeJson(doc, inputString);
-      if (err == DeserializationError::Ok) 
-      {
-        // Print the values
-        // (we must use as<T>() to resolve the ambiguity)
-        int x = doc["x"].as<int>();
-        int z = doc["z"].as<int>();
-        Serial.println("{x:" + String(5)+",z:"+String(5)+"}");
-        MQTTPOST(x,z);
-      } 
-      // clear ready for next message
-      inputString = "";
-      stringComplete = false;
-      if (!client.connected())
-      {
-        reconnect();
-      }
-    }
+      // Print the values
+      // (we must use as<T>() to resolve the ambiguity)
+      int x = doc["x"].as<int>();
+      int z = doc["z"].as<int>();
+      MQTTPOST(x,z);
+    } 
+    // clear ready for next message
+    inputString = "";
+    stringComplete = false;
+  }
+  
+  // Has a motor command been received
+  if (flag)
+  {
+    Serial.println(MQTTin);
+    MQTTin = "";
+    flag = false;
+  }
+  
+  // If MQTT has disconnected
+  if (!client.connected())
+  {
+    reconnect();
+  }
+  
+  // Keep checking MQTT subscribed topic
+  client.loop();
 }
 
-// If WiFi drops - try again
+// If MQTT connection breaks
 void reconnect() 
 {
+  
   while (!client.connected())
   {
     int status = WiFi.status();
@@ -117,8 +158,8 @@ void reconnect()
        }
     }
 
-    // Wait until we try again
-    if ( !client.connect("ESP8266 Device", TOKEN, NULL) )
+    // Keep trying MQTT connection
+    if ( !client.connect(TOKEN) )
     {
       delay(5000);
     }
